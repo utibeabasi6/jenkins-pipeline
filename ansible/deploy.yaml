@@ -1,0 +1,44 @@
+---
+- hosts: all
+  become: yes
+  tasks: 
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: latest
+
+    - name: Ensure nginx is running
+      systemd:
+        state: started
+        name: nginx
+    
+    - name: Ensures app dir exists
+      file: path=/home/app state=directory
+
+    - name: Copy docker compose to server
+      copy:
+        src: /var/lib/jenkins/workspace/interview_master/docker-compose.yaml
+        dest: /home/app
+        mode: preserve
+
+    - name: Start docker compose
+      shell: docker-compose up -d
+      args:
+         chdir: /home/app 
+
+    - name: Apply Nginx template
+      template:
+        src: /var/lib/jenkins/workspace/interview_master/ansible/conf/nginx.conf
+        dest: /etc/nginx/sites-available/default
+
+    - name: Enable new site
+      file:
+        src: /etc/nginx/sites-available/default
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+      notify: Restart Nginx
+
+    - name: Restart Nginx
+      systemd:
+        state: restarted
+        name: nginx
