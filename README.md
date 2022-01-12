@@ -1,10 +1,9 @@
-# CI Interview
+# CI Pipeline with Jenkins
 
 Your goal will be to setup a CI pipeline and cloud infrastructure
 to deploy a multi tier application into two environments.
 The CI pipeline will be implemented with Jenkins while
 the cloud infrastructure is largely your choice.
-
 
 
 ### Goals
@@ -27,8 +26,6 @@ The repository should contain all code, IaC files, and documentation
 - Documentation for how CI works and how it could be improved
 - Live demonstration deploying to both environments as triggered by commits
 - Discussion about implementation, design choices and how you would improve your implementation
-
-
 
 
 ### Setup
@@ -61,12 +58,4 @@ from the CI pipeline (Jenkinsfile(s)) into
 two environments: `dev` and `prod`.
 The setup for each does not need to be the same
 and you have flexibility to choose the technologies and methods.
-
-
-### Guidelines for sizing
-
-- You do not need high-availability, we are more interested in the workflow and CI design
-- We want to see that you can use the technologies we use
-- You can discuss how a more robust deployment can be achieved in the supplimentary documenation
-
 
